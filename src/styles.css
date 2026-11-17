@@ -1,0 +1,126 @@
+:root {
+  --bg: #f3f1ee;
+  --panel: #ffffff;
+  --text: #1d1b19;
+  --muted: #7a746c;
+  --line: #e4dfd8;
+  --accent: #2f2a25;
+  --ok: #2f7d4f;
+  --off: #a8562e;
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+.app { display: grid; grid-template-columns: 300px 1fr; height: 100vh; }
+.stage { position: relative; min-width: 0; }
+
+.panel {
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  padding: 18px 16px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+h1 { font-size: 17px; margin: 0 0 14px; letter-spacing: 0.02em; }
+h2 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 8px; }
+section { padding: 14px 0; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+
+button, select {
+  font: inherit;
+  border: 1px solid var(--line);
+  background: #faf9f7;
+  color: var(--text);
+  border-radius: 7px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.45; cursor: default; }
+button:not(:disabled):hover { border-color: #cfc8bf; }
+
+.segmented { display: flex; gap: 0; }
+.segmented button { flex: 1; border-radius: 0; margin-left: -1px; padding: 6px 4px; }
+.segmented button:first-child { border-radius: 7px 0 0 7px; margin-left: 0; }
+.segmented button:last-child { border-radius: 0 7px 7px 0; }
+.segmented button.active { background: var(--accent); color: #fff; border-color: var(--accent); position: relative; }
+
+.check { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+.row { display: flex; align-items: center; justify-content: space-between; }
+
+.field { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 8px; text-transform: capitalize; color: var(--muted); }
+.field select { text-transform: none; color: var(--text); }
+
+.upload {
+  display: block;
+  border: 1.5px dashed #cfc8bf;
+  border-radius: 9px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--accent);
+}
+.upload input { display: none; }
+.upload.disabled { opacity: 0.5; cursor: default; }
+.thumb { max-width: 100%; max-height: 140px; justify-self: center; border-radius: 6px; }
+
+.measure { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.measure th { text-align: left; color: var(--muted); font-weight: 500; font-size: 11px; }
+.measure td { padding: 2px 0; }
+.measure td:first-child { text-transform: capitalize; }
+
+.pill { margin: 0; font-size: 12px; }
+.pill.ok { color: var(--ok); }
+.pill.off { color: var(--off); }
+.hint { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.4; }
+.review { background: #faf9f7; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; line-height: 1.4; }
+.review p { margin: 0 0 6px; }
+.review ul { margin: 0; padding-left: 18px; color: var(--muted); }
+.status { background: #f6f1e8; border-radius: 8px; padding: 8px 10px; line-height: 1.4; margin: 6px 0; }
+.credit { color: var(--muted); font-size: 11px; margin-top: 16px; }
+
+@media (max-width: 720px) {
+  .app { grid-template-columns: 1fr; grid-template-rows: 60vh auto; }
+  .stage { grid-row: 1; }
+  .panel { grid-row: 2; border-right: 0; }
+}
+
+.outfits { display: flex; flex-wrap: wrap; gap: 6px; }
+.outfits button { padding: 5px 9px; font-size: 12px; }
+.outfits button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.cards-group h3 { font-size: 11px; font-weight: 600; color: var(--muted); margin: 4px 0 6px; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.card { display: grid; gap: 4px; padding: 4px; font-size: 11px; line-height: 1.2; text-align: center; }
+.card img, .card .swatch { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 5px; display: block; }
+.card .swatch.none { background: repeating-linear-gradient(45deg, #f3f1ee 0 6px, #e4dfd8 6px 7px); }
+.card.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.hint a { color: inherit; }
+
+.tones { display: flex; gap: 6px; }
+.tones button { flex: 1; height: 22px; padding: 0; border-radius: 50%; aspect-ratio: 1; border: 2px solid transparent; }
+.tones button.active { border-color: var(--accent); box-shadow: 0 0 0 1px #fff inset; }
+/* shown while a guide outfit drapes off screen */
+.draping { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); z-index: 1; padding: 6px 14px; border-radius: 999px; background: rgba(20, 20, 20, 0.7); color: #fff; font-size: 13px; pointer-events: none; }
+.guide { font-size: 12px; color: var(--muted); line-height: 1.4; margin: 4px 0 8px; }
+.guide summary { cursor: pointer; color: inherit; }
+.guide ul { margin: 6px 0; padding-left: 18px; }
+.guide li { margin: 2px 0; }
+.guide p { margin: 4px 0 0; }
+.found { list-style: none; margin: 8px 0; padding: 0; display: grid; gap: 6px; }
+.found li { display: grid; grid-template-columns: auto 40px 1fr; align-items: center; gap: 8px; padding: 4px 6px; border-radius: 8px; }
+.found li.active { background: #f6f1e8; }
+.found img { width: 40px; height: 52px; object-fit: cover; border-radius: 4px; }
+.found .check { margin: 0; }
+.link { background: none; border: 0; padding: 0; text-align: left; cursor: pointer; display: grid; gap: 2px; font: inherit; color: inherit; }
+.link span { font-size: 12px; color: var(--muted); }
+.editor { margin: 6px 0; }
+.editor input[type=color] { width: 100%; height: 30px; border: 0; background: none; }
+.photos { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+.photos img { width: 56px; height: 72px; object-fit: cover; border-radius: 6px; }
+.builds { flex-wrap: wrap; gap: 6px; }
+.source { max-height: 260px; overflow: auto; font-size: 10.5px; background: #f6f1e8; padding: 8px; border-radius: 6px; white-space: pre-wrap; }
+.swatch-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: middle; margin-left: 4px; border: 1px solid rgba(0,0,0,0.15); }
+.studio { background: #f6f1e8; border-radius: 8px; padding: 8px; margin: 6px 0; }
+.studio img { width: 100%; max-width: 180px; border-radius: 6px; display: block; margin-bottom: 6px; }

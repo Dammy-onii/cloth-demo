@@ -1,0 +1,6 @@
+node_modules
+dist
+.tools
+tools/anny-export/.venv
+.DS_Store
+tools/anny-export/.fit-cache.pt
